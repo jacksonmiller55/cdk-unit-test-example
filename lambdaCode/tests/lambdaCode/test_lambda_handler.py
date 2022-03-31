@@ -17,9 +17,9 @@ from lambdaCode.models.guest import Guest
 def test_dynamo_db_table_exception(mock_boto):
     with pytest.raises(Exception) as e_info:
         table = get_dynamo_db_table()
-        assert (
-            e_info.__str__() == "Unable to get 'TABLE_NAME' variable from environment"
-        )
+    assert (
+        e_info.value.__str__() == "Unable to get 'TABLE_NAME' variable from environment"
+    )
 
 
 @patch("lambdaCode.lambda_handler.boto3")
@@ -27,7 +27,7 @@ def test_dynamo_db_table(mock_boto):
     with patch.dict(os.environ, {"TABLE_NAME": "TABLE_NAME"}, clear=True):
         res_table = get_dynamo_db_table()
         mock_boto.resource.assert_called_once_with("dynamodb")
-        mock_boto.resource("dynamodb").Table.called_once_with("TABLE_NAME")
+        mock_boto.resource("dynamodb").Table.assert_called_once_with("TABLE_NAME")
         exp = mock_boto.resource("dynamodb").Table("TABLE_NAME")
         assert exp == res_table
 
@@ -245,6 +245,7 @@ def test_get_number_of_adults_failed():
     with pytest.raises(ValueError) as e_info:
         result = get_number_of_adults(body, section)
     assert e_info.value.__str__() == expected
+
 
 
 def test_insert_update_guest():

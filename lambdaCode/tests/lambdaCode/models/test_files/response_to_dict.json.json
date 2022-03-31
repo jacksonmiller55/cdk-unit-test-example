@@ -1,0 +1,6 @@
+{
+    "body": "{\"some\": \"fake\", \"info\": null}",
+    "headers": {"some": "fake_headers"},
+    "isBase64Encoded": false,
+    "statusCode": 200
+}
