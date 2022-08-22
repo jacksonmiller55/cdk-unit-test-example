@@ -4,3 +4,4 @@ pytest
 black
 boto3
 pytest-cov
+sqlalchemy
