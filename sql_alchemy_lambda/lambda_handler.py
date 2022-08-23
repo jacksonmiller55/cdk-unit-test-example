@@ -78,16 +78,17 @@ def get_book(db_session: Session, params: dict) -> dict:
         response: dict = Response(
             status_code=500,
             headers=headers,
-            body={"errors": json.loads(json.dumps(errors))},
+            body={"errors": errors},
         ).to_dict()
         return response
 
     query: Session.query = build_book_query(db_session, params)
-    results: List[Book] = query.all()
+    book_results: List[Book] = query.all()
+    results = [d.as_dict() for d in book_results]
     response: dict = Response(
         status_code=200,
         headers=headers,
-        body={"data": json.loads(json.dumps(results))},
+        body={"data": results},
     ).to_dict()
     return response
 

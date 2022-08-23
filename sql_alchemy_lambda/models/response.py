@@ -13,5 +13,5 @@ class Response:
             "isBase64Encoded": self.isBase64Encoded,
             "statusCode": self.statusCode,
             "headers": self.headers,
-            "body": json.dumps(self.body),
+            "body": self.body,
         }
